@@ -377,39 +377,39 @@ class WC_RPHC_Admin_Interface {
         echo '<tr><th>' . __('Item', 'wc-role-permission-health-check') . '</th><th>' . __('Status', 'wc-role-permission-health-check') . '</th><th>' . __('Details', 'wc-role-permission-health-check') . '</th></tr>';
         
         // Current user info
-        echo '<tr>';
-        echo '<td>' . __('Current User', 'wc-role-permission-health-check') . '</td>';
-        echo '<td><span class="status-good">✓</span></td>';
-        echo '<td>ID: ' . $current_user->ID . ', Login: ' . $current_user->user_login . ', Roles: ' . implode(', ', $current_user->roles) . '</td>';
+        echo '<tr class="status-row-even">';
+        echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;">' . __('Current User', 'wc-role-permission-health-check') . '</td>';
+        echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;"><span class="status-good">✓</span></td>';
+        echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;">ID: ' . $current_user->ID . ', Login: ' . $current_user->user_login . ', Roles: ' . implode(', ', $current_user->roles) . '</td>';
         echo '</tr>';
         
         // WooCommerce status
-        echo '<tr>';
-        echo '<td>' . __('WooCommerce Plugin', 'wc-role-permission-health-check') . '</td>';
+        echo '<tr class="status-row-odd">';
+        echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce Plugin', 'wc-role-permission-health-check') . '</td>';
         if ($wc_active) {
-            echo '<td><span class="status-good">✓ ' . __('Active', 'wc-role-permission-health-check') . '</span></td>';
-            echo '<td>' . sprintf(__('Version: %s', 'wc-role-permission-health-check'), WC()->version) . '</td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;"><span class="status-good">✓ ' . __('Active', 'wc-role-permission-health-check') . '</span></td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . sprintf(__('Version: %s', 'wc-role-permission-health-check'), WC()->version) . '</td>';
         } else {
-            echo '<td><span class="status-critical">✗ ' . __('Inactive', 'wc-role-permission-health-check') . '</span></td>';
-            echo '<td>' . __('WooCommerce is not active', 'wc-role-permission-health-check') . '</td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;"><span class="status-critical">✗ ' . __('Inactive', 'wc-role-permission-health-check') . '</span></td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce is not active', 'wc-role-permission-health-check') . '</td>';
         }
         echo '</tr>';
         
         // Administrator role
-        echo '<tr>';
-        echo '<td>' . __('Administrator Role', 'wc-role-permission-health-check') . '</td>';
+        echo '<tr class="status-row-even">';
+        echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;">' . __('Administrator Role', 'wc-role-permission-health-check') . '</td>';
         if ($admin_role) {
-            echo '<td><span class="status-good">✓ ' . __('Exists', 'wc-role-permission-health-check') . '</span></td>';
-            echo '<td>' . sprintf(__('Capabilities: %d', 'wc-role-permission-health-check'), count($admin_role->capabilities)) . '</td>';
+            echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;"><span class="status-good">✓ ' . __('Exists', 'wc-role-permission-health-check') . '</span></td>';
+            echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;">' . sprintf(__('Capabilities: %d', 'wc-role-permission-health-check'), count($admin_role->capabilities)) . '</td>';
         } else {
-            echo '<td><span class="status-critical">✗ ' . __('Missing', 'wc-role-permission-health-check') . '</span></td>';
-            echo '<td>' . __('Administrator role is missing', 'wc-role-permission-health-check') . '</td>';
+            echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;"><span class="status-critical">✗ ' . __('Missing', 'wc-role-permission-health-check') . '</span></td>';
+            echo '<td style="color: #2c2c2c !important; background: #f8f6ff !important;">' . __('Administrator role is missing', 'wc-role-permission-health-check') . '</td>';
         }
         echo '</tr>';
         
         // WooCommerce menu status
-        echo '<tr>';
-        echo '<td>' . __('WooCommerce Menu', 'wc-role-permission-health-check') . '</td>';
+        echo '<tr class="status-row-odd">';
+        echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce Menu', 'wc-role-permission-health-check') . '</td>';
         if ($wc_active) {
             global $menu;
             $wc_menu_found = false;
@@ -423,15 +423,15 @@ class WC_RPHC_Admin_Interface {
             }
             
             if ($wc_menu_found) {
-                echo '<td><span class="status-good">✓ ' . __('Visible', 'wc-role-permission-health-check') . '</span></td>';
-                echo '<td>' . __('WooCommerce menu is present in admin', 'wc-role-permission-health-check') . '</td>';
+                echo '<td style="color: #2c2c2c !important; background: #ffffff !important;"><span class="status-good">✓ ' . __('Visible', 'wc-role-permission-health-check') . '</span></td>';
+                echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce menu is present in admin', 'wc-role-permission-health-check') . '</td>';
             } else {
-                echo '<td><span class="status-critical">✗ ' . __('Missing', 'wc-role-permission-health-check') . '</span></td>';
-                echo '<td>' . __('WooCommerce menu is not visible', 'wc-role-permission-health-check') . '</td>';
+                echo '<td style="color: #2c2c2c !important; background: #ffffff !important;"><span class="status-critical">✗ ' . __('Missing', 'wc-role-permission-health-check') . '</span></td>';
+                echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce menu is not visible', 'wc-role-permission-health-check') . '</td>';
             }
         } else {
-            echo '<td><span class="status-warning">⚠ ' . __('N/A', 'wc-role-permission-health-check') . '</span></td>';
-            echo '<td>' . __('WooCommerce not active', 'wc-role-permission-health-check') . '</td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;"><span class="status-warning">⚠ ' . __('N/A', 'wc-role-permission-health-check') . '</span></td>';
+            echo '<td style="color: #2c2c2c !important; background: #ffffff !important;">' . __('WooCommerce not active', 'wc-role-permission-health-check') . '</td>';
         }
         echo '</tr>';
         
