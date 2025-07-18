@@ -227,16 +227,42 @@ class WC_RPHC_Admin_Interface {
             padding: 12px;
             border: 1px solid #e0d8ff;
             text-align: left;
-            color: #2c2c2c;
+            color: #2c2c2c !important;
+            font-weight: 500;
         }
         .system-status-table th {
             background: #f8f6ff;
             font-weight: bold;
             border-bottom: 2px solid #e0d8ff;
+            color: #2c2c2c !important;
         }
-        .status-good { color: #222; }
-        .status-warning { color: #ffb900; }
-        .status-critical { color: #dc3232; }
+        .system-status-table tr:nth-child(even) {
+            background: #f8f6ff;
+        }
+        .system-status-table tr:nth-child(odd) {
+            background: #ffffff;
+        }
+        .system-status-table tr:nth-child(even) td {
+            color: #2c2c2c !important;
+        }
+        .system-status-table tr:nth-child(odd) td {
+            color: #2c2c2c !important;
+        }
+        /* Force proper contrast for all table content */
+        .system-status-table td,
+        .system-status-table th {
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
+        }
+        /* Ensure alternating rows are clearly visible */
+        .system-status-table tr:nth-child(even) {
+            background: #f8f6ff !important;
+        }
+        .system-status-table tr:nth-child(odd) {
+            background: #ffffff !important;
+        }
+        .status-good { color: #2c2c2c !important; font-weight: 600; }
+        .status-warning { color: #d97706 !important; font-weight: 600; }
+        .status-critical { color: #dc2626 !important; font-weight: 600; }
         .emergency-options {
             margin-top: 15px;
         }
