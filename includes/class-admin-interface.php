@@ -214,8 +214,8 @@ class WC_RPHC_Admin_Interface {
             border-left: 4px solid #ffb900;
         }
         .health-issue.good {
-            background: #e8f5e8;
-            border-left: 4px solid #46b450;
+            background: #f3f0ff;
+            border-left: 4px solid #8b7dd3;
         }
         .system-status-table {
             width: 100%;
@@ -231,7 +231,7 @@ class WC_RPHC_Admin_Interface {
             background: #f1f1f1;
             font-weight: bold;
         }
-        .status-good { color: #46b450; }
+        .status-good { color: #8b7dd3; }
         .status-warning { color: #ffb900; }
         .status-critical { color: #dc3232; }
         .emergency-options {
