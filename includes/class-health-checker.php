@@ -102,12 +102,25 @@ class WC_RPHC_Health_Checker {
             return $result;
         }
         
+        // Check WooCommerce autoloader first
+        $autoloader_result = $this->check_wc_autoloader();
+        if ($autoloader_result['status'] !== 'good') {
+            $result['status'] = $autoloader_result['status'];
+            $result['message'] = $autoloader_result['message'];
+            $this->issues_found[] = 'wc_autoloader_missing';
+            return $result;
+        }
+        
         // Check if WooCommerce core classes exist
         $core_classes = array(
             'WC_Admin_Menus',
-            'WC_Admin_Settings',
-            'Automattic\WooCommerce\Admin\Install'
+            'WC_Admin_Settings'
         );
+        
+        // Only check modern admin classes for WooCommerce 4.0+
+        if (class_exists('WooCommerce') && version_compare(WC()->version, '4.0', '>=')) {
+            $core_classes[] = 'Automattic\WooCommerce\Admin\Install';
+        }
         
         foreach ($core_classes as $class) {
             if (!class_exists($class)) {
@@ -115,6 +128,34 @@ class WC_RPHC_Health_Checker {
                 $result['message'] = sprintf(__('WooCommerce core class missing: %s', 'wc-role-permission-health-check'), $class);
                 $this->issues_found[] = 'wc_core_missing';
                 break;
+            }
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Check WooCommerce autoloader
+     */
+    private function check_wc_autoloader() {
+        $result = array('status' => 'good', 'message' => __('WooCommerce autoloader is working', 'wc-role-permission-health-check'));
+        
+        $autoloader_file = WP_PLUGIN_DIR . '/woocommerce/vendor/autoload.php';
+        
+        if (!file_exists($autoloader_file)) {
+            $result['status'] = 'critical';
+            $result['message'] = __('WooCommerce autoloader file missing', 'wc-role-permission-health-check');
+            return $result;
+        }
+        
+        // Try to manually include it if not already loaded
+        if (!class_exists('Composer\Autoload\ClassLoader')) {
+            try {
+                require_once $autoloader_file;
+            } catch (Exception $e) {
+                $result['status'] = 'critical';
+                $result['message'] = sprintf(__('WooCommerce autoloader failed to load: %s', 'wc-role-permission-health-check'), $e->getMessage());
+                return $result;
             }
         }
         
@@ -465,6 +506,12 @@ class WC_RPHC_Health_Checker {
                 case 'wc_menu_missing':
                     $results[] = $this->fix_wc_menu_missing();
                     break;
+                case 'wc_core_missing':
+                    $results[] = $this->fix_wc_core_missing();
+                    break;
+                case 'wc_autoloader_missing':
+                    $results[] = $this->fix_wc_autoloader_missing();
+                    break;
                 default:
                     $results[] = array('status' => 'skipped', 'message' => sprintf(__('No fix available for issue: %s', 'wc-role-permission-health-check'), $issue));
             }
@@ -610,6 +657,79 @@ class WC_RPHC_Health_Checker {
         }
         
         return array('status' => 'warning', 'message' => __('WooCommerce admin menu fix attempted. Please refresh the page to see if the menu appears.', 'wc-role-permission-health-check'));
+    }
+    
+    /**
+     * Fix missing WooCommerce core classes
+     */
+    private function fix_wc_core_missing() {
+        // Step 1: Check WooCommerce version
+        if (!class_exists('WooCommerce')) {
+            return array('status' => 'failed', 'message' => __('WooCommerce not active', 'wc-role-permission-health-check'));
+        }
+        
+        $wc_version = WC()->version;
+        
+        // Step 2: For older versions, don't check modern classes
+        if (version_compare($wc_version, '4.0', '<')) {
+            return array('status' => 'skipped', 'message' => __('WooCommerce version too old for modern admin classes', 'wc-role-permission-health-check'));
+        }
+        
+        // Step 3: Try to force autoloader reload
+        $autoloader = WP_PLUGIN_DIR . '/woocommerce/vendor/autoload.php';
+        if (file_exists($autoloader)) {
+            require_once $autoloader;
+        }
+        
+        // Step 4: Reactivate WooCommerce
+        if (function_exists('deactivate_plugins') && function_exists('activate_plugin')) {
+            deactivate_plugins('woocommerce/woocommerce.php');
+            activate_plugin('woocommerce/woocommerce.php');
+            
+            // Step 5: Clear all caches
+            if (function_exists('wp_cache_flush')) {
+                wp_cache_flush();
+            }
+            
+            $this->fixes_applied[] = 'wc_core_reloaded';
+            return array('status' => 'fixed', 'message' => __('WooCommerce core files reloaded. Please refresh the page.', 'wc-role-permission-health-check'));
+        }
+        
+        return array('status' => 'failed', 'message' => __('Could not reactivate WooCommerce', 'wc-role-permission-health-check'));
+    }
+    
+    /**
+     * Fix missing WooCommerce autoloader
+     */
+    private function fix_wc_autoloader_missing() {
+        $autoloader_file = WP_PLUGIN_DIR . '/woocommerce/vendor/autoload.php';
+        
+        if (!file_exists($autoloader_file)) {
+            // Try to force WooCommerce reinstallation
+            if (function_exists('deactivate_plugins') && function_exists('activate_plugin')) {
+                deactivate_plugins('woocommerce/woocommerce.php');
+                activate_plugin('woocommerce/woocommerce.php');
+                
+                // Clear caches
+                if (function_exists('wp_cache_flush')) {
+                    wp_cache_flush();
+                }
+                
+                $this->fixes_applied[] = 'wc_autoloader_restored';
+                return array('status' => 'fixed', 'message' => __('WooCommerce has been reactivated to restore autoloader. Please refresh the page.', 'wc-role-permission-health-check'));
+            }
+            
+            return array('status' => 'failed', 'message' => __('Could not restore WooCommerce autoloader', 'wc-role-permission-health-check'));
+        }
+        
+        // Try to manually include the autoloader
+        try {
+            require_once $autoloader_file;
+            $this->fixes_applied[] = 'wc_autoloader_loaded';
+            return array('status' => 'fixed', 'message' => __('WooCommerce autoloader has been loaded', 'wc-role-permission-health-check'));
+        } catch (Exception $e) {
+            return array('status' => 'failed', 'message' => sprintf(__('Failed to load autoloader: %s', 'wc-role-permission-health-check'), $e->getMessage()));
+        }
     }
     
     /**
