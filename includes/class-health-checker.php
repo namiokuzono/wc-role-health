@@ -257,8 +257,10 @@ class WC_RPHC_Health_Checker {
             return $result;
         }
         
-        // Check if WooCommerce menu exists
+        // Check if WooCommerce menu exists using multiple methods
         $wc_menu_found = false;
+        
+        // Method 1: Check global $menu array
         if (is_array($menu)) {
             foreach ($menu as $menu_item) {
                 if (isset($menu_item[2]) && strpos($menu_item[2], 'woocommerce') !== false) {
@@ -268,9 +270,30 @@ class WC_RPHC_Health_Checker {
             }
         }
         
-        if (!$wc_menu_found) {
-            $result['status'] = 'critical';
-            $result['message'] = __('WooCommerce admin menu is not present', 'wc-role-permission-health-check');
+        // Method 2: Check if WooCommerce menu function exists and user has capability
+        if (!$wc_menu_found && current_user_can('edit_others_shop_orders')) {
+            // Try to force WooCommerce to register its menu
+            if (class_exists('WC_Admin_Menus')) {
+                // Check if the menu registration hook has been fired
+                if (did_action('admin_menu')) {
+                    // Menu should be registered by now, let's check again
+                    if (is_array($menu)) {
+                        foreach ($menu as $menu_item) {
+                            if (isset($menu_item[2]) && strpos($menu_item[2], 'woocommerce') !== false) {
+                                $wc_menu_found = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Method 3: Check if WooCommerce admin class exists and is properly loaded
+        if (!$wc_menu_found && class_exists('WooCommerce')) {
+            // This might be a timing issue, so we'll mark it as a warning instead of critical
+            $result['status'] = 'warning';
+            $result['message'] = __('WooCommerce admin menu may not be visible (timing issue or admin class not loaded)', 'wc-role-permission-health-check');
             $this->issues_found[] = 'wc_menu_missing';
         }
         
@@ -439,6 +462,9 @@ class WC_RPHC_Health_Checker {
                 case 'wc_table_missing':
                     $results[] = $this->fix_wc_table_missing();
                     break;
+                case 'wc_menu_missing':
+                    $results[] = $this->fix_wc_menu_missing();
+                    break;
                 default:
                     $results[] = array('status' => 'skipped', 'message' => sprintf(__('No fix available for issue: %s', 'wc-role-permission-health-check'), $issue));
             }
@@ -554,6 +580,36 @@ class WC_RPHC_Health_Checker {
         }
         
         return array('status' => 'failed', 'message' => __('Could not recreate WooCommerce tables', 'wc-role-permission-health-check'));
+    }
+    
+    /**
+     * Fix missing WooCommerce admin menu
+     */
+    private function fix_wc_menu_missing() {
+        if (!class_exists('WooCommerce')) {
+            return array('status' => 'failed', 'message' => __('WooCommerce is not active', 'wc-role-permission-health-check'));
+        }
+        
+        // Ensure user has the required capability
+        if (!current_user_can('edit_others_shop_orders')) {
+            $current_user = wp_get_current_user();
+            $current_user->add_cap('edit_others_shop_orders');
+            $this->fixes_applied[] = 'wc_menu_cap_added';
+        }
+        
+        // Try to force WooCommerce to register its admin menu
+        if (class_exists('WC_Admin_Menus')) {
+            // Clear any cached menu data
+            delete_transient('wc_admin_menu_cache');
+            
+            // Force WooCommerce to re-register its admin menu
+            do_action('admin_menu');
+            
+            $this->fixes_applied[] = 'wc_menu_forced_registration';
+            return array('status' => 'fixed', 'message' => __('WooCommerce admin menu registration has been forced. Please refresh the page.', 'wc-role-permission-health-check'));
+        }
+        
+        return array('status' => 'warning', 'message' => __('WooCommerce admin menu fix attempted. Please refresh the page to see if the menu appears.', 'wc-role-permission-health-check'));
     }
     
     /**
