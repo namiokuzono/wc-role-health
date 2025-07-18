@@ -223,13 +223,15 @@ class WC_RPHC_Admin_Interface {
         }
         .system-status-table th,
         .system-status-table td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border: 1px solid #e0d8ff;
             text-align: left;
+            color: #2c2c2c;
         }
         .system-status-table th {
-            background: #f1f1f1;
+            background: #f8f6ff;
             font-weight: bold;
+            border-bottom: 2px solid #e0d8ff;
         }
         .status-good { color: #8b7dd3; }
         .status-warning { color: #ffb900; }
@@ -243,12 +245,16 @@ class WC_RPHC_Admin_Interface {
         }
         .emergency-options code {
             display: block;
-            padding: 10px;
-            background: #f1f1f1;
-            border: 1px solid #ddd;
-            border-radius: 3px;
+            padding: 12px;
+            background: #ffffff;
+            border: 2px solid #e0d8ff;
+            border-radius: 6px;
             margin: 10px 0;
             word-break: break-all;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #2c2c2c;
+            box-shadow: 0 2px 4px rgba(139, 125, 211, 0.1);
         }
         </style>
         
