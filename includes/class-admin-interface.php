@@ -42,13 +42,27 @@ class WC_RPHC_Admin_Interface {
      * Enqueue scripts and styles
      */
     public function enqueue_scripts($hook) {
-        if ($hook !== 'tools_page_wc-role-health') {
+        // Debug: Log the hook name to help identify the correct hook
+        error_log('WCRPHC Debug: Current hook: ' . $hook);
+        
+        // Check if we're on our plugin page - be more flexible with the hook check
+        if (strpos($hook, 'wc-role-health') === false && $hook !== 'tools_page_wc-role-health') {
+            error_log('WCRPHC Debug: Hook mismatch, not loading scripts. Expected: tools_page_wc-role-health, Got: ' . $hook);
             return;
         }
         
+        error_log('WCRPHC Debug: Loading scripts for hook: ' . $hook);
+        
+        // Check if files actually exist
+        $js_file = WC_RPHC_PLUGIN_URL . 'assets/admin.js';
+        $css_file = WC_RPHC_PLUGIN_URL . 'assets/admin.css';
+        
+        error_log('WCRPHC Debug: JS File: ' . $js_file);
+        error_log('WCRPHC Debug: CSS File: ' . $css_file);
+        
         wp_enqueue_script(
             'wc-rphc-admin', 
-            WC_RPHC_PLUGIN_URL . 'assets/admin.js', 
+            $js_file,
             array('jquery'), 
             WC_RPHC_VERSION, 
             true
@@ -56,7 +70,7 @@ class WC_RPHC_Admin_Interface {
         
         wp_enqueue_style(
             'wc-rphc-admin', 
-            WC_RPHC_PLUGIN_URL . 'assets/admin.css', 
+            $css_file,
             array(), 
             WC_RPHC_VERSION
         );
@@ -73,6 +87,8 @@ class WC_RPHC_Admin_Interface {
                 'confirm_fixes' => __('Are you sure you want to apply the fixes? This will modify user roles and capabilities.', 'wc-role-permission-health-check')
             )
         ));
+        
+        error_log('WCRPHC Debug: Scripts enqueued successfully');
     }
     
     /**
@@ -235,6 +251,28 @@ class WC_RPHC_Admin_Interface {
             word-break: break-all;
         }
         </style>
+        
+        <!-- Debug JavaScript Loading -->
+        <script>
+        console.log('WCRPHC: Inline script loaded');
+        console.log('WCRPHC: jQuery available:', typeof jQuery !== 'undefined');
+        console.log('WCRPHC: wcRphc object:', typeof wcRphc !== 'undefined' ? wcRphc : 'undefined');
+        
+        // Simple test to see if our external JS loads
+        jQuery(document).ready(function() {
+            console.log('WCRPHC: Document ready in inline script');
+            
+            // Test if our buttons exist
+            console.log('WCRPHC: Run health check button:', jQuery('#run-health-check').length);
+            console.log('WCRPHC: Apply fixes button:', jQuery('#run-health-fix').length);
+            
+            // Add a simple test handler
+            jQuery('#run-health-check').on('click', function(e) {
+                console.log('WCRPHC: Health check button clicked (inline handler)');
+                alert('Inline handler works! External JS might not be loading.');
+            });
+        });
+        </script>
         
         <script>
         jQuery(document).ready(function($) {
