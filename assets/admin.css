@@ -131,11 +131,33 @@
 }
 
 .system-status-table tr:nth-child(even) {
-    background: #faf9ff;
+    background: #f8f6ff;
 }
 
 .system-status-table tr:nth-child(odd) {
     background: #ffffff;
+}
+
+/* Ensure all table text has proper contrast */
+.system-status-table td {
+    color: #2c2c2c;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.system-status-table th {
+    color: #2c2c2c;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* Additional contrast improvements */
+.system-status-table tr:nth-child(even) td {
+    color: #2c2c2c;
+}
+
+.system-status-table tr:nth-child(odd) td {
+    color: #2c2c2c;
 }
 
 .system-status-table tr:hover {
@@ -145,18 +167,25 @@
 
 /* Status Indicators */
 .status-good {
-    color: #222;
+    color: #2c2c2c;
     font-weight: 600;
 }
 
 .status-warning {
-    color: #ffb900;
+    color: #d97706;
     font-weight: 600;
 }
 
 .status-critical {
-    color: #dc3232;
+    color: #dc2626;
     font-weight: 600;
+}
+
+/* Ensure status indicators are readable in all contexts */
+.system-status-table .status-good,
+.system-status-table .status-warning,
+.system-status-table .status-critical {
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
 }
 
 /* Emergency Recovery Section */
@@ -411,6 +440,7 @@
     .wc-health-results {
         background: #2c3338;
         border-color: #555;
+        color: #fff;
     }
     
     .health-issue {
@@ -421,10 +451,20 @@
     .system-status-table th {
         background: #2c3338;
         color: #fff;
+        border-color: #555;
     }
     
     .system-status-table tr:nth-child(even) {
         background: #1d2327;
+    }
+    
+    .system-status-table tr:nth-child(odd) {
+        background: #2c3338;
+    }
+    
+    .system-status-table td {
+        color: #fff;
+        border-color: #555;
     }
     
     .emergency-options code {
