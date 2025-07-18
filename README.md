@@ -66,6 +66,8 @@ This plugin diagnoses and fixes these complex issues automatically.
 
 ## 📖 Usage
 
+<img width="2292" height="4344" alt="CleanShot 2025-07-18 at 15 54 19@2x" src="https://github.com/user-attachments/assets/d98f6940-879f-4529-89f5-a3acecda7187" />
+
 ### Basic Health Check
 1. Go to **Tools > WC Role Health** in your WordPress admin
 2. Click **"Run Health Check"** to scan for issues
@@ -112,36 +114,6 @@ This plugin was specifically designed to solve complex cases like:
 - **Rollback Capability** - Can restore previous state if needed
 - **Non-Destructive Scans** - Diagnostic mode doesn't modify anything
 
-## 🐛 Troubleshooting
-
-### Plugin Not Working?
-1. Ensure you have administrator privileges
-2. Check if WooCommerce is properly installed
-3. Verify PHP error logs for conflicts
-4. Try the Emergency Recovery URL method
-
-### Still Having Issues?
-1. **Export System Information** from the plugin
-2. Check the diagnostic results for specific error codes
-3. Review WordPress debug logs
-4. Consider the Nuclear Repair option for severe cases
-
-### Common Error Messages:
-- **"Class not found" errors** → Core file corruption (plugin will fix)
-- **"Not authorized" messages** → Permission corruption (plugin will repair)
-- **"Menu not found" errors** → Admin menu hooks missing (plugin will restore)
-
-## 📊 Diagnostic Report Sample
-
-```
-✅ WooCommerce Plugin: Active (v9.9.5)
-❌ Admin Menu: Missing from dashboard
-❌ User Capabilities: Missing manage_woocommerce
-✅ Database Tables: All present
-⚠️  Plugin Conflicts: User Role Editor detected
-✅ File Permissions: Correct
-```
-
 ## 🔒 Security Considerations
 
 - Only users with `manage_options` capability can use this plugin
@@ -160,44 +132,6 @@ This plugin was specifically designed to solve complex cases like:
 1. Add plugin files via FTP
 2. Use emergency recovery URL
 3. Check hosting control panel for database access
-
-## 📝 Changelog
-
-### Version 1.0.0
-- Initial release
-- Comprehensive health check system
-- Automated repair capabilities
-- Emergency recovery features
-- Plugin conflict detection
-- Nuclear repair option
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📞 Support
-
-- **Issues:** [GitHub Issues](https://github.com/yourusername/woocommerce-role-permission-health-check/issues)
-- **Documentation:** [Wiki](https://github.com/yourusername/woocommerce-role-permission-health-check/wiki)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/woocommerce-role-permission-health-check/discussions)
-
-## 📄 License
-
-This project is licensed under the GPL v2 License - see the [LICENSE](LICENSE) file for details.
-
-## ⭐ Show Your Support
-
-If this plugin helped solve your WooCommerce permission issues, please:
-- ⭐ Star this repository
-- 🐛 Report any bugs you find
-- 💡 Suggest new features
-- 📢 Share with others who might need it
-
-## 🏷️ Tags
 
 `wordpress` `woocommerce` `permissions` `user-roles` `admin-menu` `debugging` `repair-tool` `plugin-conflicts` `emergency-recovery` `capability-management`
 
