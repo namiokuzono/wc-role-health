@@ -87,13 +87,13 @@
 .health-issue.good {
     background: #f3f0ff;
     border-left-color: #8b7dd3;
-    color: #4a3f8a;
+    color: #222;
 }
 
 .health-issue.fixed {
     background: #e8e4ff;
     border-left-color: #7c6bc4;
-    color: #4a3f8a;
+    color: #222;
 }
 
 .health-issue.failed {
@@ -145,7 +145,7 @@
 
 /* Status Indicators */
 .status-good {
-    color: #8b7dd3;
+    color: #222;
     font-weight: 600;
 }
 
