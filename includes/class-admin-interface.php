@@ -273,177 +273,29 @@ class WC_RPHC_Admin_Interface {
             console.log('WCRPHC: Run health check button:', jQuery('#run-health-check').length);
             console.log('WCRPHC: Apply fixes button:', jQuery('#run-health-fix').length);
             
-            // Add a simple test handler
-            jQuery('#run-health-check').on('click', function(e) {
-                console.log('WCRPHC: Health check button clicked (inline handler)');
-                alert('Inline handler works! External JS might not be loading.');
-            });
+            // Check if external JS loaded by looking for WCRPHC object
+            if (typeof window.WCRPHC === 'undefined') {
+                console.log('WCRPHC: External JS not loaded, using fallback handlers');
+                
+                // Fallback handlers only if external JS fails
+                jQuery('#run-health-check').on('click', function(e) {
+                    console.log('WCRPHC: Health check button clicked (fallback handler)');
+                    alert('External JavaScript not loading. Please check file paths and permissions.');
+                });
+                
+                jQuery('#run-health-fix').on('click', function(e) {
+                    console.log('WCRPHC: Apply fixes button clicked (fallback handler)');
+                    alert('External JavaScript not loading. Please check file paths and permissions.');
+                });
+            } else {
+                console.log('WCRPHC: External JS loaded successfully');
+            }
         });
         </script>
         
+        <!-- External JavaScript will handle all button interactions -->
         <script>
-        jQuery(document).ready(function($) {
-            // Health Check
-            $('#run-health-check').on('click', function() {
-                var button = $(this);
-                var resultsDiv = $('#health-check-results');
-                var contentDiv = $('#results-content');
-                
-                button.prop('disabled', true).text(wcRphc.strings.checking);
-                resultsDiv.show();
-                contentDiv.html('<p><?php _e('Running comprehensive health check...', 'wc-role-permission-health-check'); ?></p>');
-                
-                $.ajax({
-                    url: wcRphc.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'wc_rphc_health_check',
-                        nonce: wcRphc.nonce
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            contentDiv.html(response.data.html);
-                            if (response.data.has_issues) {
-                                $('#run-health-fix').prop('disabled', false);
-                            }
-                        } else {
-                            contentDiv.html('<p class="health-issue critical"><?php _e('Error:', 'wc-role-permission-health-check'); ?> ' + response.data + '</p>');
-                        }
-                    },
-                    error: function() {
-                        contentDiv.html('<p class="health-issue critical"><?php _e('AJAX error occurred', 'wc-role-permission-health-check'); ?></p>');
-                    },
-                    complete: function() {
-                        button.prop('disabled', false).text('<?php _e('Run Health Check', 'wc-role-permission-health-check'); ?>');
-                    }
-                });
-            });
-            
-            // Apply Fixes
-            $('#run-health-fix').on('click', function() {
-                var button = $(this);
-                var resultsDiv = $('#health-fix-results');
-                var contentDiv = $('#fix-results-content');
-                
-                if (!confirm(wcRphc.strings.confirm_fixes)) {
-                    return;
-                }
-                
-                button.prop('disabled', true).text(wcRphc.strings.fixing);
-                resultsDiv.show();
-                contentDiv.html('<p><?php _e('Applying fixes...', 'wc-role-permission-health-check'); ?></p>');
-                
-                $.ajax({
-                    url: wcRphc.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'wc_rphc_health_fix',
-                        nonce: wcRphc.nonce
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            contentDiv.html(response.data.html);
-                            // Re-run health check
-                            setTimeout(function() {
-                                $('#run-health-check').trigger('click');
-                            }, 1000);
-                        } else {
-                            contentDiv.html('<p class="health-issue critical"><?php _e('Error:', 'wc-role-permission-health-check'); ?> ' + response.data + '</p>');
-                        }
-                    },
-                    error: function() {
-                        contentDiv.html('<p class="health-issue critical"><?php _e('AJAX error occurred', 'wc-role-permission-health-check'); ?></p>');
-                    },
-                    complete: function() {
-                        button.prop('disabled', false).text('<?php _e('Apply Fixes', 'wc-role-permission-health-check'); ?>');
-                    }
-                });
-            });
-            
-            // Nuclear Repair
-            $('#nuclear-repair').on('click', function() {
-                if (!confirm(wcRphc.strings.confirm_nuclear)) {
-                    return;
-                }
-                
-                var button = $(this);
-                button.prop('disabled', true).text('<?php _e('Performing Nuclear Repair...', 'wc-role-permission-health-check'); ?>');
-                
-                $.ajax({
-                    url: wcRphc.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'wc_rphc_nuclear_repair',
-                        nonce: wcRphc.nonce
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            alert('<?php _e('Nuclear repair completed successfully! Please refresh the page.', 'wc-role-permission-health-check'); ?>');
-                            location.reload();
-                        } else {
-                            alert('<?php _e('Nuclear repair failed:', 'wc-role-permission-health-check'); ?> ' + response.data);
-                        }
-                    },
-                    error: function() {
-                        alert('<?php _e('AJAX error occurred during nuclear repair', 'wc-role-permission-health-check'); ?>');
-                    },
-                    complete: function() {
-                        button.prop('disabled', false).text('<?php _e('Nuclear Repair', 'wc-role-permission-health-check'); ?>');
-                    }
-                });
-            });
-            
-            // Export System Info
-            $('#export-system-info').on('click', function() {
-                var button = $(this);
-                button.prop('disabled', true).text('<?php _e('Exporting...', 'wc-role-permission-health-check'); ?>');
-                
-                $.ajax({
-                    url: wcRphc.ajax_url,
-                    type: 'POST',
-                    data: {
-                        action: 'wc_rphc_export_system_info',
-                        nonce: wcRphc.nonce
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Create download link
-                            var blob = new Blob([JSON.stringify(response.data, null, 2)], {type: 'application/json'});
-                            var url = window.URL.createObjectURL(blob);
-                            var a = document.createElement('a');
-                            a.href = url;
-                            a.download = 'wc-role-health-system-info.json';
-                            document.body.appendChild(a);
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            document.body.removeChild(a);
-                        } else {
-                            alert('<?php _e('Export failed:', 'wc-role-permission-health-check'); ?> ' + response.data);
-                        }
-                    },
-                    error: function() {
-                        alert('<?php _e('AJAX error occurred during export', 'wc-role-permission-health-check'); ?>');
-                    },
-                    complete: function() {
-                        button.prop('disabled', false).text('<?php _e('Export System Info', 'wc-role-permission-health-check'); ?>');
-                    }
-                });
-            });
-            
-            // Create Emergency User
-            $('#create-emergency-user').on('click', function() {
-                if (!confirm('<?php _e('Are you sure you want to create an emergency admin user?', 'wc-role-permission-health-check'); ?>')) {
-                    return;
-                }
-                
-                var button = $(this);
-                button.prop('disabled', true).text('<?php _e('Creating...', 'wc-role-permission-health-check'); ?>');
-                
-                // This would need to be implemented as an AJAX endpoint
-                alert('<?php _e('Emergency user creation feature will be implemented in a future version.', 'wc-role-permission-health-check'); ?>');
-                button.prop('disabled', false).text('<?php _e('Create Emergency User', 'wc-role-permission-health-check'); ?>');
-            });
-        });
+        console.log('WCRPHC: Admin page loaded, external JS should handle interactions');
         </script>
         <?php
     }
