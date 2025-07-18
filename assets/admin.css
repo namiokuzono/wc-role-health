@@ -1,0 +1,413 @@
+/**
+ * WooCommerce Role Permission Health Check - Admin CSS
+ * 
+ * Styles for the admin interface and components.
+ * 
+ * @package WC_Role_Permission_Health_Check
+ * @since 1.0.0
+ */
+
+/* Main Container */
+.wc-rphc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Health Check Actions */
+.wc-health-actions {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.wc-health-actions button {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.wc-health-actions button:last-child {
+    margin-right: 0;
+}
+
+/* Health Check Results */
+.wc-health-results {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.wc-health-results h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #23282d;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Health Issues */
+.health-issue {
+    padding: 12px 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border-left: 4px solid;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.health-issue.critical {
+    background: #fee;
+    border-left-color: #dc3232;
+    color: #721c24;
+}
+
+.health-issue.warning {
+    background: #fff8e1;
+    border-left-color: #ffb900;
+    color: #856404;
+}
+
+.health-issue.good {
+    background: #e8f5e8;
+    border-left-color: #46b450;
+    color: #155724;
+}
+
+.health-issue.fixed {
+    background: #d4edda;
+    border-left-color: #28a745;
+    color: #155724;
+}
+
+.health-issue.failed {
+    background: #f8d7da;
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+.health-issue.skipped {
+    background: #e2e3e5;
+    border-left-color: #6c757d;
+    color: #383d41;
+}
+
+/* System Status Table */
+.system-status-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.system-status-table th,
+.system-status-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+}
+
+.system-status-table th {
+    background: #f1f1f1;
+    font-weight: 600;
+    color: #23282d;
+}
+
+.system-status-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.system-status-table tr:hover {
+    background: #f0f0f1;
+}
+
+/* Status Indicators */
+.status-good {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.status-warning {
+    color: #ffb900;
+    font-weight: 600;
+}
+
+.status-critical {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+/* Emergency Recovery Section */
+.emergency-options {
+    margin-top: 15px;
+}
+
+.emergency-options h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #23282d;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.emergency-options p {
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.emergency-options code {
+    display: block;
+    padding: 10px;
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 10px 0;
+    word-break: break-all;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Buttons */
+.button.nuclear-repair {
+    background: #dc3232;
+    border-color: #dc3232;
+    color: #fff;
+}
+
+.button.nuclear-repair:hover {
+    background: #c92626;
+    border-color: #c92626;
+}
+
+.button.emergency-user {
+    background: #ffb900;
+    border-color: #ffb900;
+    color: #fff;
+}
+
+.button.emergency-user:hover {
+    background: #e6a800;
+    border-color: #e6a800;
+}
+
+/* Tooltips */
+.wc-rphc-tooltip {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 9999;
+    max-width: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.wc-rphc-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+/* Notifications */
+.wc-rphc-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    color: #fff;
+    z-index: 9999;
+    max-width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    animation: slideIn 0.3s ease-out;
+}
+
+.wc-rphc-notification-success {
+    background: #46b450;
+}
+
+.wc-rphc-notification-error {
+    background: #dc3232;
+}
+
+.wc-rphc-notification-warning {
+    background: #ffb900;
+    color: #333;
+}
+
+.wc-rphc-notification-info {
+    background: #0073aa;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading States */
+.wc-rphc-loading {
+    position: relative;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.wc-rphc-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Progress Bars */
+.wc-rphc-progress {
+    width: 100%;
+    height: 20px;
+    background: #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.wc-rphc-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #0073aa, #005a87);
+    transition: width 0.3s ease;
+    border-radius: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wc-rphc-container {
+        max-width: 100%;
+    }
+    
+    .wc-health-actions button {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .system-status-table {
+        font-size: 12px;
+    }
+    
+    .system-status-table th,
+    .system-status-table td {
+        padding: 8px;
+    }
+    
+    .emergency-options code {
+        font-size: 10px;
+        padding: 8px;
+    }
+    
+    .wc-rphc-notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .wc-health-actions,
+    .emergency-options,
+    .wc-rphc-notification {
+        display: none !important;
+    }
+    
+    .wc-health-results {
+        border: 1px solid #000;
+        background: #fff;
+    }
+    
+    .health-issue {
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
+    }
+}
+
+/* Accessibility */
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+/* Focus States */
+.wc-health-actions button:focus,
+.emergency-options button:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .health-issue {
+        border-width: 2px;
+    }
+    
+    .system-status-table th,
+    .system-status-table td {
+        border-width: 2px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .wc-health-results {
+        background: #2c3338;
+        border-color: #555;
+    }
+    
+    .health-issue {
+        background: #2c3338;
+        color: #fff;
+    }
+    
+    .system-status-table th {
+        background: #2c3338;
+        color: #fff;
+    }
+    
+    .system-status-table tr:nth-child(even) {
+        background: #1d2327;
+    }
+    
+    .emergency-options code {
+        background: #1d2327;
+        border-color: #555;
+        color: #fff;
+    }
+}

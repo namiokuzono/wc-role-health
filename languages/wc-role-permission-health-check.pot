@@ -1,0 +1,421 @@
+# Copyright (C) 2024 WooCommerce Role Permission Health Check
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Role Permission Health Check 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-role-permission-health-check\n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-health-checker.php:67
+msgid "WooCommerce plugin is active and functioning"
+msgstr ""
+
+#: includes/class-health-checker.php:70
+msgid "WooCommerce plugin is not active"
+msgstr ""
+
+#: includes/class-health-checker.php:78
+msgid "WooCommerce core class missing: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:89
+msgid "User roles are properly configured"
+msgstr ""
+
+#: includes/class-health-checker.php:94
+msgid "Administrator role is missing"
+msgstr ""
+
+#: includes/class-health-checker.php:108
+msgid "Administrator role missing capabilities: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:118
+msgid "Database tables are intact"
+msgstr ""
+
+#: includes/class-health-checker.php:125
+msgid "Essential database table missing: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:137
+msgid "WooCommerce table missing: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:147
+msgid "WooCommerce capabilities are properly set"
+msgstr ""
+
+#: includes/class-health-checker.php:165
+msgid "Current user missing WooCommerce capabilities: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:175
+msgid "Admin menus are loading properly"
+msgstr ""
+
+#: includes/class-health-checker.php:189
+msgid "WooCommerce admin menu is not present"
+msgstr ""
+
+#: includes/class-health-checker.php:199
+msgid "User meta is intact"
+msgstr ""
+
+#: includes/class-health-checker.php:205
+msgid "User capabilities meta is corrupted"
+msgstr ""
+
+#: includes/class-health-checker.php:211
+msgid "User is missing administrator capability"
+msgstr ""
+
+#: includes/class-health-checker.php:220
+msgid "WordPress options are intact"
+msgstr ""
+
+#: includes/class-health-checker.php:227
+msgid "Essential option missing: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:237
+msgid "File permissions are correct"
+msgstr ""
+
+#: includes/class-health-checker.php:242
+msgid "Uploads directory is not writable"
+msgstr ""
+
+#: includes/class-health-checker.php:252
+msgid "No conflicting plugins detected"
+msgstr ""
+
+#: includes/class-health-checker.php:268
+msgid "Potentially conflicting plugins active: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:278
+msgid "No obvious code interference detected"
+msgstr ""
+
+#: includes/class-health-checker.php:291
+msgid "Theme functions.php contains code that might interfere with admin menus"
+msgstr ""
+
+#: includes/class-health-checker.php:315
+msgid "No fix available for issue: %s"
+msgstr ""
+
+#: includes/class-health-checker.php:324
+msgid "Administrator role has been restored"
+msgstr ""
+
+#: includes/class-health-checker.php:332
+msgid "Administrator role does not exist"
+msgstr ""
+
+#: includes/class-health-checker.php:350
+msgid "Administrator capabilities have been restored"
+msgstr ""
+
+#: includes/class-health-checker.php:370
+msgid "WooCommerce user capabilities have been restored"
+msgstr ""
+
+#: includes/class-health-checker.php:383
+msgid "User capabilities have been reset"
+msgstr ""
+
+#: includes/class-health-checker.php:392
+msgid "Administrator role has been added to user"
+msgstr ""
+
+#: includes/class-health-checker.php:400
+msgid "WooCommerce is not active"
+msgstr ""
+
+#: includes/class-health-checker.php:407
+msgid "WooCommerce tables have been recreated"
+msgstr ""
+
+#: includes/class-health-checker.php:410
+msgid "Could not recreate WooCommerce tables"
+msgstr ""
+
+#: includes/class-health-checker.php:430
+msgid "All checks passed!"
+msgstr ""
+
+#: includes/class-health-checker.php:430
+msgid "No issues found with your WooCommerce installation."
+msgstr ""
+
+#: includes/class-health-checker.php:432
+msgid "Issues found: %d"
+msgstr ""
+
+#: includes/class-health-checker.php:432
+msgid "Click \"Apply Fixes\" to attempt automatic repairs."
+msgstr ""
+
+#: includes/class-health-checker.php:450
+msgid "Fixes applied: %d"
+msgstr ""
+
+#: includes/class-health-checker.php:450
+msgid "Please refresh your WordPress admin and check if the WooCommerce menu is now visible."
+msgstr ""
+
+#: includes/class-health-checker.php:460
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/class-emergency-recovery.php:25
+msgid "You do not have sufficient permissions for emergency recovery."
+msgstr ""
+
+#: includes/class-emergency-recovery.php:32
+msgid "Security check failed."
+msgstr ""
+
+#: includes/class-emergency-recovery.php:200
+msgid "WooCommerce Role & Permission Issues Detected"
+msgstr ""
+
+#: includes/class-emergency-recovery.php:207
+msgid "WooCommerce admin menu is missing"
+msgstr ""
+
+#: includes/class-emergency-recovery.php:211
+msgid "Missing WooCommerce management capabilities"
+msgstr ""
+
+#: includes/class-emergency-recovery.php:217
+msgid "Run Health Check & Fix"
+msgstr ""
+
+#: includes/class-admin-interface.php:67
+msgid "WooCommerce Role Health Check"
+msgstr ""
+
+#: includes/class-admin-interface.php:68
+msgid "WC Role Health"
+msgstr ""
+
+#: includes/class-admin-interface.php:82
+msgid "Emergency recovery completed successfully!"
+msgstr ""
+
+#: includes/class-admin-interface.php:85
+msgid "Emergency recovery failed. Please try again or contact support."
+msgstr ""
+
+#: includes/class-admin-interface.php:95
+msgid "WooCommerce Role & Permission Health Check"
+msgstr ""
+
+#: includes/class-admin-interface.php:97
+msgid "This tool will diagnose and repair WooCommerce user role and permission issues that may cause missing admin menus or access problems."
+msgstr ""
+
+#: includes/class-admin-interface.php:101
+msgid "Run Health Check"
+msgstr ""
+
+#: includes/class-admin-interface.php:103
+msgid "Apply Fixes"
+msgstr ""
+
+#: includes/class-admin-interface.php:107
+msgid "Nuclear Repair"
+msgstr ""
+
+#: includes/class-admin-interface.php:112
+msgid "Health Check Results"
+msgstr ""
+
+#: includes/class-admin-interface.php:118
+msgid "Fix Results"
+msgstr ""
+
+#: includes/class-admin-interface.php:125
+msgid "Current System Status"
+msgstr ""
+
+#: includes/class-admin-interface.php:133
+msgid "Emergency Recovery"
+msgstr ""
+
+#: includes/class-admin-interface.php:135
+msgid "If you are completely locked out of WooCommerce, use these emergency recovery options:"
+msgstr ""
+
+#: includes/class-admin-interface.php:139
+msgid "Emergency Recovery URL"
+msgstr ""
+
+#: includes/class-admin-interface.php:140
+msgid "Add this parameter to any admin URL to trigger emergency recovery:"
+msgstr ""
+
+#: includes/class-admin-interface.php:145
+msgid "Emergency Admin User"
+msgstr ""
+
+#: includes/class-admin-interface.php:146
+msgid "Create a new emergency administrator user:"
+msgstr ""
+
+#: includes/class-admin-interface.php:148
+msgid "Create Emergency User"
+msgstr ""
+
+#: includes/class-admin-interface.php:155
+msgid "System Information"
+msgstr ""
+
+#: includes/class-admin-interface.php:157
+msgid "Export detailed system information for debugging:"
+msgstr ""
+
+#: includes/class-admin-interface.php:159
+msgid "Export System Info"
+msgstr ""
+
+#: includes/class-admin-interface.php:200
+msgid "Item"
+msgstr ""
+
+#: includes/class-admin-interface.php:200
+msgid "Status"
+msgstr ""
+
+#: includes/class-admin-interface.php:200
+msgid "Details"
+msgstr ""
+
+#: includes/class-admin-interface.php:204
+msgid "Current User"
+msgstr ""
+
+#: includes/class-admin-interface.php:209
+msgid "WooCommerce Plugin"
+msgstr ""
+
+#: includes/class-admin-interface.php:212
+msgid "Active"
+msgstr ""
+
+#: includes/class-admin-interface.php:214
+msgid "Version: %s"
+msgstr ""
+
+#: includes/class-admin-interface.php:216
+msgid "Inactive"
+msgstr ""
+
+#: includes/class-admin-interface.php:218
+msgid "WooCommerce is not active"
+msgstr ""
+
+#: includes/class-admin-interface.php:222
+msgid "Administrator Role"
+msgstr ""
+
+#: includes/class-admin-interface.php:225
+msgid "Exists"
+msgstr ""
+
+#: includes/class-admin-interface.php:227
+msgid "Capabilities: %d"
+msgstr ""
+
+#: includes/class-admin-interface.php:229
+msgid "Missing"
+msgstr ""
+
+#: includes/class-admin-interface.php:231
+msgid "Administrator role is missing"
+msgstr ""
+
+#: includes/class-admin-interface.php:235
+msgid "WooCommerce Menu"
+msgstr ""
+
+#: includes/class-admin-interface.php:245
+msgid "Visible"
+msgstr ""
+
+#: includes/class-admin-interface.php:247
+msgid "WooCommerce menu is present in admin"
+msgstr ""
+
+#: includes/class-admin-interface.php:251
+msgid "WooCommerce menu is not visible"
+msgstr ""
+
+#: includes/class-admin-interface.php:255
+msgid "N/A"
+msgstr ""
+
+#: includes/class-admin-interface.php:257
+msgid "WooCommerce not active"
+msgstr ""
+
+#: includes/class-admin-interface.php:280
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: includes/class-admin-interface.php:295
+msgid "Nuclear repair completed successfully."
+msgstr ""
+
+#: includes/class-admin-interface.php:297
+msgid "Nuclear repair failed."
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:15
+msgid "WooCommerce Role & Permission Health Check"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:16
+msgid "Diagnose and repair WooCommerce user role and permission issues including missing admin menus and access problems."
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:19
+msgid "Woo Nami"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:20
+msgid "GPL v2 or later"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:22
+msgid "5.0"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:24
+msgid "6.4"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:26
+msgid "5.0"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:28
+msgid "9.0"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:30
+msgid "wc-role-permission-health-check"
+msgstr ""
+
+#: woocommerce-role-permission-health-check.php:31
+msgid "/languages"
+msgstr "" 
