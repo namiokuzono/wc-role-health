@@ -480,10 +480,18 @@ class WC_RPHC_Health_Checker {
      * Apply fixes for found issues
      */
     public function apply_fixes() {
+        error_log('WCRPHC: apply_fixes called with issues: ' . print_r($this->issues_found, true));
+        
         $this->fixes_applied = array();
         $results = array();
         
+        if (empty($this->issues_found)) {
+            error_log('WCRPHC: No issues found to fix');
+            return array(array('status' => 'skipped', 'message' => __('No issues found to fix', 'wc-role-permission-health-check')));
+        }
+        
         foreach ($this->issues_found as $issue) {
+            error_log('WCRPHC: Processing issue: ' . $issue);
             switch ($issue) {
                 case 'admin_role_missing':
                     $results[] = $this->fix_admin_role_missing();
@@ -802,16 +810,24 @@ class WC_RPHC_Health_Checker {
      * AJAX handler for applying fixes
      */
     public function ajax_health_fix() {
+        error_log('WCRPHC: ajax_health_fix called');
+        
         check_ajax_referer('wc_rphc_nonce', 'nonce');
         
         if (!current_user_can('manage_options')) {
+            error_log('WCRPHC: User lacks manage_options capability');
             wp_die(__('You do not have sufficient permissions to access this page.', 'wc-role-permission-health-check'));
         }
         
+        error_log('WCRPHC: Applying fixes...');
         $results = $this->apply_fixes();
+        error_log('WCRPHC: Fix results: ' . print_r($results, true));
+        
+        $html = $this->format_fix_results($results);
+        error_log('WCRPHC: Formatted HTML length: ' . strlen($html));
         
         wp_send_json_success(array(
-            'html' => $this->format_fix_results($results)
+            'html' => $html
         ));
     }
     

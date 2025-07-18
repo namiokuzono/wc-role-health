@@ -290,6 +290,45 @@ class WC_RPHC_Admin_Interface {
             } else {
                 console.log('WCRPHC: External JS loaded successfully');
             }
+            
+            // Add a simple test handler for Apply Fixes that will work regardless
+            jQuery('#run-health-fix').off('click').on('click', function(e) {
+                e.preventDefault();
+                console.log('WCRPHC: Apply fixes button clicked (test handler)');
+                
+                var button = jQuery(this);
+                var resultsDiv = jQuery('#health-fix-results');
+                var contentDiv = jQuery('#fix-results-content');
+                
+                button.prop('disabled', true).text('Testing...');
+                resultsDiv.show();
+                contentDiv.html('<p>Testing Apply Fixes functionality...</p>');
+                
+                // Test AJAX call
+                jQuery.ajax({
+                    url: wcRphc.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'wc_rphc_health_fix',
+                        nonce: wcRphc.nonce
+                    },
+                    success: function(response) {
+                        console.log('WCRPHC: AJAX response:', response);
+                        if (response.success) {
+                            contentDiv.html(response.data.html);
+                        } else {
+                            contentDiv.html('<p class="health-issue critical">Error: ' + response.data + '</p>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('WCRPHC: AJAX error:', xhr, status, error);
+                        contentDiv.html('<p class="health-issue critical">AJAX error occurred: ' + error + '</p>');
+                    },
+                    complete: function() {
+                        button.prop('disabled', false).text('Apply Fixes');
+                    }
+                });
+            });
         });
         </script>
         
